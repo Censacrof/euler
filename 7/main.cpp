@@ -1,14 +1,16 @@
 #include <iostream>
 #include <vector>
 
-#define LIMIT 10001
+#define LIMIT 500000
 
 using namespace std;
 
 int main()
 {
 	vector<int> primes;
+	primes.reserve(LIMIT);
 	primes.push_back(2);
+	int pc = 0;
 
 	for (int i = 3; primes.size() < LIMIT; i += 2)
 	{
@@ -24,7 +26,17 @@ int main()
 		}
 
 		if (prime)
+		{
 			primes.push_back(i);
+			int npc = primes.size() * 100 / LIMIT;
+			if (npc > pc)
+			{
+				pc = npc;
+				cout << primes.size() * 100 / LIMIT << "%\n";
+			}
+			
+		}
+			
 	}
 
 	cout << primes.back() << "\n"; 
